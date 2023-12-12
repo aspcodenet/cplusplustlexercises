@@ -6,15 +6,18 @@
 #include <ranges>
 
 
-
+// OBJECTS -> OOP Class
+// light versions DTO data transfer objects
+// I typically use struct 
 class Actor
 {
 public:
-    int Id;
+    int Id;   // public? 
     std::string Name;
-    int Birthyear;
+    int Birthyear; // -2000
 
-    std::string ToString()
+    // maybe not the best
+    std::string ToString() // overload stream insertion operator << 
     {
         return Name;
     }
@@ -29,12 +32,18 @@ public:
     int ReleaseYear;
     std::vector<Actor> Actors;
 
-    std::string ToString() {
+    std::string ToString() {  // overload stream insertion operator <<    
         return Title + " (" + std::to_string(ReleaseYear) + ") - " + Director;
     }
 };
 
+// probably  not  as bad as you think
+// RVO - return value optimization
+//void GetAllActors(std::vector<Actor> &actors) {
 std::vector<Actor> GetAllActors() {
+//    Actor actor{1,"dasdasdas",2010};
+    //auto i = 2;
+
     return std::vector<Actor> {
         {1, "Leonardo DiCaprio", 1974},
         {2, "Joseph Gordon-Levitt", 1981},
@@ -78,6 +87,8 @@ std::vector<Movie> getAllMovies() {
         Movie{10, "Age of Innocence", "Martin Scorsese", 1993},
         Movie{11, "Tinker Tailor Soldier Spy", "Tomas Alfredson", 2011},
     };
+    //std::vector<Actor> allActors;
+    //GetAllActors(allActors); // by ref
     std::vector<Actor> allActors = GetAllActors();
     
     addActor(movies[0],allActors,1);
@@ -122,14 +133,16 @@ std::vector<Movie> getAllMovies() {
     return movies;
 }
 
+
+
 void exercises(){
     // 1. Visa alla filmer som släpptes någon gång under 90-talet.
     // 2. Visa alla filmer vars Actor-lista innehåller tre skådespelare 
     // 3. Visa alla filmer som där någon av skådespelarna i filmen var äldre än 40 år när filmen gjordes
     // 4. Visa alla skådespelare som är äldre än 50 år. Sortera skådespelarna på namn.
     // 5. Visa alla skådespelare som har bokstaven "g" eller ”G” i sitt namn. 
-    // 6. Visa för alla skådespelare bara deras namn och ålder. SVÅR
-    // 7. Visa en lista innehållande filmtitel, regissör och antal skådespelare för alla filmer.
+    // 6. Visa för alla skådespelare bara deras namn och ålder. TRANSFORM
+    // 7. Visa en lista innehållande filmtitel, regissör och antal skådespelare för alla filmer. TRANSFORM
     // 8. Visa för alla filmer filmens titel, samt genomsnittliga åldern för skådespelarna i filmen TRANSFORM!
     // 9. ta fram alla filmer som gjordes under 2000-talet och där regissören heter Martin Scorsese.Visa bara Titel, release år och regissör.
     // 10. Visa alla skådespelare som är med i mer än en film. Visa också hur många filmer de är med i.
@@ -138,6 +151,9 @@ void exercises(){
 
 
 int main(){
+    //Movie m{ 1,"dsadsa","312132",1222 };
+    
+    //std::vector<Movie> movies2;
     //Setup
     std::vector<Movie> movies =  getAllMovies();
     for(auto m : movies){
